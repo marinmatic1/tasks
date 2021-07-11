@@ -10,22 +10,22 @@
 
 using namespace std;
 struct Point {
-	long double x;
-	long double y;
+	float x;
+	float y;
 	Point() {}
-	Point(long double p1, long double p2) {
+	Point(float p1, float p2) {
 		x = p1;
 		y = p2;
 	}
 };
 
 struct Line {
-	long double px1;
-	long double py1;
-	long double px2;
-	long double py2;
+	float px1;
+	float py1;
+	float px2;
+	float py2;
 
-	Line(long double p1, long double p2, long double p3, long double p4) {
+	Line(float p1, float p2, float p3, float p4) {
 		px1 = p1;
 		py1 = p2;
 		px2 = p3;
@@ -40,41 +40,9 @@ struct Line {
 	Line() {}
 };
 
-bool onSegment(Point p, Point q, Point r) {
-	if (q.x <= max(p.x, r.x) && q.x >= min(p.x, r.x) && q.y <= max(p.y, r.y) && q.y >= min(p.y, r.y)) return true;
-	return false;
-}
-
-int orientation(Point p, Point q, Point r) {
-	int val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
-	if (val == 0) return 0; //collinear
-	return(val > 0) ? 1 : 2;
-}
-
-bool doIntersect(Point p1, Point q1, Point p2, Point q2) {
-	int o1 = orientation(p1,q1,p2);
-	int o2 = orientation(p1,q1,q2);
-	int o3 = orientation(p2,q2,p1);
-	int o4 = orientation(p2,q2,q1);
-
-	if (o1 != o2 && o3 != o4) return true;
-	Line l = { p1 ,p2 };
-	if (o1 == 0 && onSegment(p1,p2,q1)) return true;
-
-	l = { p1 ,q2 };
-	if (o2 == 0 && onSegment(p1,q2,q1)) return true;
-
-	l = { p2 ,p1 };
-	if (o3 == 0 && onSegment(p2,p1,q2)) return true;
-
-	l = { p2 ,q1 };
-	if (o4 == 0 && onSegment(p2,q1,q2)) return true;
-
-	return false;
-}
-
-int getPointIntersectedByLines(Line l1, Line l2, long double*  ipX, long double* ipY) {
-	long double x1, y1, x2, y2, x3, y3, x4, y4, D, t, u;
+bool doIntersect(Line l1, Line l2) {
+	
+	float x1, y1, x2, y2, x3, y3, x4, y4, D, t, u;
 
 	x1 = l1.px1; x2 = l1.px2; x3 = l2.px1; x4 = l2.px2;
 	y1 = l1.py1; y2 = l1.py2; y3 = l2.py1; y4 = l2.py2;
@@ -82,41 +50,43 @@ int getPointIntersectedByLines(Line l1, Line l2, long double*  ipX, long double*
 	D = (x1 - x2) * (y3 - y4) - (y1 - y2)*(x3 - x4);
 	if (D == 0)
 		return 0; // collinear
-
+	
 	t = ((x1 - x3)*(y3 - y4) - (y1 - y3)*(x3 - x4))/D;
 	u = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / D;
 
 	if (t < 0 || t>1 || u < 0 || u >1 )
 		return 0; // no intersect
-	if (ipX != NULL) {
-		*ipX = x1 + t * (x2 - x1);
-		if (*ipX >= 1 || *ipX <= 0)
-			return 0; // lines do intersect but out of bounds on x axix
-	}
 	
-	if (ipY != NULL) {
-		*ipY = y1 + t * (y2 - y1);
-		if (*ipY >= 1 || *ipY <= 0)
-			return 0; // lines do intersect but out of bounds on y axix
-	}
-
-	Point p1 = { l1.px1,l1.py1 }, q1 = { l1.px2,l1.py2 };
-	Point p2 = { l2.px1,l2.py1 }, q2 = { l2.px2,l2.py2 };
-	if (doIntersect(p1, q1, p2, q2)) return 1;
-
-	//assumed intersect
-	return 1;
+	
+	return 1; //assumed intersect
 }
 
+vector<vector<Point>> setCenterPixelsMap(int SIZE) {
+	vector<vector<Point>> centerPixelsMap(SIZE, vector<Point>(SIZE));
+	float pixelSize = (float)1 / SIZE;
+	float centerOfPixel = pixelSize / 2;
+	float yAxis = centerOfPixel;
+	float xAxis;
+	// initializing a 2d vector made of values for central pixels
+	for (int i = 0; i < centerPixelsMap.size();i++) {
+		xAxis = centerOfPixel;
+		for (int j = 0; j < centerPixelsMap.size(); j++) {
+			centerPixelsMap[i][j].x = xAxis;
+			centerPixelsMap[i][j].y = yAxis;
+			xAxis = xAxis + pixelSize;
+		}
+		yAxis = yAxis + pixelSize;
+	}
+	return centerPixelsMap;
+}
 
-vector<vector<short int>> calculatePixelsMap(vector<vector<Line>> lines, vector<vector<Point>> centerPixels, int n) {
+vector<vector<unsigned char>> calculatePixelsMap(vector<vector<Line>> lines, int n) {
 
-	vector<vector<short int>> pixels(n, vector<short int>(n, 0)); // size of vector pixel collumns and rows is constant n, pixel rows and colls are initialized to be 0. 0 for black and 255 for white
-
+	vector<vector<unsigned char>> pixels(n, vector<unsigned char>(n, 0)); // size of vector pixel collumns and rows is constant n, pixel rows and colls are initialized to be 0. 0 for black and 255 for white
+	vector<vector<Point>> centerPixels = setCenterPixelsMap(n);
 	Line segment = {};
-	long double limitPoint = 1;
-	long double ipX, ipY;
-	int counter;
+	float limitPoint = 1;
+	bool counter;
 	long int iterations = 0;
 	for (int i = 0; i < centerPixels.size(); i++) {
 		for (int j = 0; j < centerPixels.size(); j++) {
@@ -126,20 +96,20 @@ vector<vector<short int>> calculatePixelsMap(vector<vector<Line>> lines, vector<
 			segment.py2 = centerPixels[i][j].y;
 			int t = 0;
 			while (t < lines.size()) { // lines are regions
+				counter = false;
 				int x = 0;
-				counter = 0;
 				while (x < lines[t].size()) { // lines[t] are ordered line segments which make a polygon, we check a single polygon at a time
 					iterations++;
-					if (getPointIntersectedByLines(lines[t][x], segment, &ipX, &ipY)) {       // segment from center pixel to extreme point is object segment.
-						counter++;
+					if (doIntersect(lines[t][x], segment)) {       // segment from center pixel to extreme point is object segment.
+						counter=!counter;
 					}
 					x++;
 					}
-				t++;
 				if (counter % 2 != 0) { //  a line intersects even number of times when it starting point is outside of the region, if it intersects odd number of times then it is inside. Visual proof
 					pixels[i][j] = 255;
-					break;  // checking a single polygon at a time lowers 
+					break;  // advantage of checking a single polygon at a time is that if a pixel is inside it then futher checks are obsolete.
 				}
+				t++;
 			}
 		}
 	}
@@ -152,7 +122,7 @@ vector < vector<Line>> getRegionData(int* size) {
 	std::ifstream data("Data.txt", std::ifstream::binary);
 	std::vector<string> collection;
 	string s = "";
-	vector<long double> points;
+	vector<float> points;
 	vector<Point> point;
 	data.seekg(0, data.end);
 	int length = data.tellg();
@@ -191,7 +161,7 @@ vector < vector<Line>> getRegionData(int* size) {
 	if (!collection.empty()) {
 		for (string s : collection) {
 			try {
-				long double d = stod(s);
+				float d = stof(s);
 				points.push_back(d);
 			}
 			catch (exception e) {
@@ -248,24 +218,7 @@ vector < vector<Line>> getRegionData(int* size) {
 	return regionData;
 }
 
-vector<vector<Point>> setCenterPixelsMap(int SIZE) {
-	vector<vector<Point>> centerPixelsMap(SIZE, vector<Point>(SIZE));
-	long double pixelSize = (long double)1 / SIZE;
-	long double centerOfPixel = pixelSize / 2;
-	long double yAxis = centerOfPixel;
-	long double xAxis;
-	// initializing a 2d vector made of values for central pixels
-	for (int i = 0; i < centerPixelsMap.size();i++) {
-		xAxis = centerOfPixel;
-		for (int j = 0; j < centerPixelsMap.size(); j++) {
-			centerPixelsMap[i][j].x = xAxis;
-			centerPixelsMap[i][j].y = yAxis;
-			xAxis = xAxis + pixelSize;
-		}
-		yAxis = yAxis + pixelSize;
-	}
-	return centerPixelsMap;
-}
+
 
 
 
@@ -277,9 +230,8 @@ int main(string args[]) {
 	time_req = clock();
 
 	int SIZE;
-	vector<vector<Line>> regionData = getRegionData(&SIZE);
-	vector<vector<Point>> centerPixelsMap = setCenterPixelsMap(SIZE);
-	vector<vector<short int>> image = calculatePixelsMap(regionData, centerPixelsMap,SIZE);
+	vector<vector<Line>> regionData = getRegionData(&SIZE); // just stores all of the points, every polygon individually
+	vector<vector<unsigned char>> image = calculatePixelsMap(regionData,SIZE); // values of 0 or 255 stored in a 2d vector image later to be saved
 	
 	const int width = SIZE;
 	const int height = SIZE;
@@ -291,6 +243,9 @@ int main(string args[]) {
 		}
 	}
 	img.Export("image.bmp");
+	img.~Image(); // destructor
+	regionData.clear();
+	image.clear();
 	time_req = clock() - time_req;
 	std::cout << "Done!"<<endl;
 	std::cout << "Program took: "<< (float)time_req / CLOCKS_PER_SEC << " seconds" <<endl;

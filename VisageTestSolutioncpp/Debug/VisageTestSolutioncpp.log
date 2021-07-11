@@ -1,15 +1,15 @@
 ﻿  Main.cpp
-C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(49,10): warning C4244: 'initializing': conversion from 'long double' to 'int', possible loss of data
-C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(121,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(122,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(128,13): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(131,14): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(158,13): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
-C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(208,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(224,19): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(225,13): warning C4018: '>=': signed/unsigned mismatch
-C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(258,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(260,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(275,11): warning C4101: 'y': unreferenced local variable
-C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(275,8): warning C4101: 'x': unreferenced local variable
+C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(71,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(73,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(91,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(92,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(98,13): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(101,14): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(108,9): warning C4804: '%': unsafe use of type 'bool' in operation
+C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(128,13): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(178,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(194,19): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(195,13): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(228,11): warning C4101: 'y': unreferenced local variable
+C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\VisageTestSolutioncpp\Main.cpp(228,8): warning C4101: 'x': unreferenced local variable
   VisageTestSolutioncpp.vcxproj -> C:\Users\Win10\Desktop\Visage Technologies Test Solution\VisageTestSolutioncpp\Debug\VisageTestSolutioncpp.exe
